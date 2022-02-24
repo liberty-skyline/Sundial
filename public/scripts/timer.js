@@ -15,11 +15,11 @@
 		console.log("All done!");
     //So this should never come up on the web, but in node, intervalID is some funky object and this is how you get the id
     let primitiveID;
-    if(this.intervalID[Symbol.toPrimitive]()) {
-      primitiveID = this.intervalID[Symbol.toPrimitive]();
-    } else {
+   // if(this.intervalID[Symbol.toPrimitive]()) {
+     // primitiveID = this.intervalID[Symbol.toPrimitive]();
+    //} else {
       primitiveID = this.intervalID;
-    }
+    //}
     
 		this.intervalID ? clearInterval(primitiveID) : null;
     this.timerRunning = false;

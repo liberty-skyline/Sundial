@@ -56,7 +56,7 @@
 
           <div class="progress-bar-1">
             <p class="progress-bar-2">
-              You're 50% finished with your itinerary.
+              You're <span id="progress-total">50%</span> finished with your itinerary.
             </p>
             <div class="progress-bar-3">
               <div class="progress-bar-4"></div>
@@ -67,5 +67,23 @@
 
       </div>
     </main>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        task1 = new Task("math", 80);
+        TaskManager.addTask(task1);
+        Timer.startTimer();
+        const progressTotal = document.getElementById("progress-total");
+        const appLoop = () => {
+          if(Timer.getTotalProgress() == undefined) {
+            progressTotal.innerHTML = "null"; // change this
+            clearInterval(intervalID);
+          } else {
+            progressTotal.innerHTML = Timer.getTotalProgress().toString() + "%";
+            console.log("hi");
+          }
+        }
+        let intervalID = setInterval(appLoop, 100);
+      });
+    </script>
   </body>
 </html>
