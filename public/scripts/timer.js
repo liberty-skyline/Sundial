@@ -64,6 +64,28 @@
     } else {
       return undefined;
     }
+  },
+
+  getTotalProgress() {
+    if(this.timerRunning) {
+      let total = 0;
+      let done = 0;
+      for(let i=0; i < TaskManager.doneTasks.length; i++) {
+        let duration = TaskManager.doneTasks[i].duration ? TaskManager.doneTasks[i].duration : 0;
+        total += duration;
+        done += duration;
+      }
+
+      for(let i=0; i < TaskManager.taskStack.length; i++) {
+        total += TaskManager.taskStack[i].duration;  
+      }
+      done += TaskManager.getTask().duration - TaskManager.getTask().timeLeft;
+      console.log(done,total);
+      return Math.round((done / total) * 100);
+    } else {
+      return undefined;
+    }
   }
+
   
 }

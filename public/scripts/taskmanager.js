@@ -2,6 +2,7 @@
 
 /*export */const TaskManager = {
 	taskStack: [],
+  doneTasks: [],
 	idCount: 0,
 	addTask(task) {
 		if(!(task instanceof Task)) {
@@ -49,6 +50,7 @@
 
 	taskFinished() {
 		//run task finished funcs
+    this.doneTasks.push(this.getTask());
 		this.removeTask();
 	},
 
@@ -151,6 +153,31 @@
 
 	getAllTasks() {
 		return this.taskStack;
-	}
+	},
+
+  getCompletedTask(identifier) {
+    if(identifier) {
+			const type = typeof identifier;
+			if(type == "number") {
+				try {
+					return this.doneTasks[identifier];
+				} catch(e) {
+					throw new Error(`No task with id ${identifier} found`);
+				}
+			} else if(type == "string") {
+				for(let i=0; i < this.doneTasks.length; i++) {
+					if(this.doneTasks[i].name == identifier) {
+						return this.doneTasks[i];
+					}
+				}
+				throw new Error(`${identifier} not found`);
+			} else {
+				throw new Error("identifier not of type 'number' or 'string'");
+			}
+		} else {
+			return this.doneTasks[0];
+		}
+
+  }
 	
 }
