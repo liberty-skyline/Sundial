@@ -56,7 +56,7 @@
               You're <span id="progress-total">50%</span> finished with your itinerary.
             </p>
             <div class="progress-bar-3">
-              <div class="progress-bar-4"></div>
+              <div id="progress-bar-4" class="progress-bar-4"></div>
             </div>
           </div>
 
@@ -72,11 +72,11 @@
         const progressTotal = document.getElementById("progress-total");
         const appLoop = () => {
           if(Timer.getTotalProgress() == undefined) {
-            progressTotal.innerHTML = "null"; // change this
+            document.getElementById("progress-bar-4").style["width"] = "100%";            progressTotal.innerHTML = "You're 100% finished with your itinerary."; 
             clearInterval(intervalID);
           } else {
             progressTotal.innerHTML = Timer.getTotalProgress().toString() + "%";
-            console.log("hi");
+            document.getElementById("progress-bar-4").style["width"] = Timer.getTotalProgress().toString() + "%";
           }
         }
         let intervalID = setInterval(appLoop, 100);
