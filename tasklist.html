@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sundial</title>
+    <!-- index stylesheet -->
+    <link rel="stylesheet" type="text/css" href="./css/index.css" />
+    <!-- scripts -->
+    <script src="scripts/task.js" ></script>
+    <script src="scripts/taskmanager.js" ></script>
+    <script src="scripts/timer.js" ></script>
+
+  </head>
+  <body>
+      <main>
+          <div class="card-2">
+            <div class="upcoming-tasks-1">
+                <span class="upcoming-tasks-2">
+                  Your Upcoming Tasks
+                </span>
+                <div class="upcoming-tasks-3">
+                  <div class="upcoming-tasks-4">
+                    <span class="upcoming-tasks-5">
+                      5:00
+                    </span>
+                  </div>
+                  <div class="upcoming-tasks-6">
+                    <span class="upcoming-tasks-7">
+                      Break
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="add-tasks-1">
+                <div>
+                  <input type="text" class="add-tasks-2" id="task-name" name="task-name" placeholder="Add Task">
+                  <button type="submit" class="add-tasks-5">+</button>
+                </div>
+                <div>
+                  <label for="add-tasks-3">Task Duration</label>
+                  <input type="number" class="add-tasks-3" id="task-duration" name="task-duration" value="25" min="5" max="150" step="5">
+                  <label for="add-tasks-4">Task Urgency</label>
+                  <input type="range" class="add-tasks-4" id="task-urgency" name="task-urgency" value="0" min="-2" max="2">
+                </div>                    
+              </div>
+          </div>
+      </main>
+  </body>
+</html>
