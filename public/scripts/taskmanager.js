@@ -178,6 +178,10 @@
 			return this.doneTasks[0];
 		}
 
+  },
+
+  clearDoneTasks() {
+    this.doneTasks = [];
   }
 	
 }
