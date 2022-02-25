@@ -85,6 +85,7 @@
         const progressTotal = document.getElementById("progress-total");
         const appLoop = () => {
           updateTimerText();
+          updateTasks();
           if(Timer.getTotalProgress() == undefined) {
             document.getElementById("progress-bar-4").style["width"] = "100%";            
             document.getElementById("progress-bar-2").innerHTML = "You're 100% finished with your itinerary."; 
@@ -102,15 +103,21 @@
           secs = (secs.toString().length == 1 ? ("0" + secs.toString()) : secs.toString());
           document.getElementById("timer-text").innerHTML = mins.toString() + ":" + secs;
         }
-        const addTask = () => {
-          const template = `<div class="upcoming-tasks-3"><div class="upcoming-tasks-4"><span class="upcoming-tasks-5"></span></div><div class="upcoming-tasks-6"> <span class="upcoming-tasks-7"></span></div></div>`
+        const updateTasks = () => {
+
+          const temF = `<div class="upcoming-tasks-3"><div class="upcoming-tasks-4"><span class="upcoming-tasks-5">`;
+          const temM = `</span></div><div class="upcoming-tasks-6"> <span class="upcoming-tasks-7">`;
+          const temE = `</span></div></div>`;
+
+          let taskString = "";
           const tasks = TaskManager.getAllTasks();
-          console.log(tasks);
-          for(i=1; i<tasks.length;i++) {
-            let taskHTML = template;
-            
-            document.getElementById("upcoming-tasks-1").insertAdjacentHTML("beforeend", taskHTML);
+          for(i=1; i<tasks.length;i++) { 
+            let mins; 
+            let time = task[i].timeLeft 
+            let taskHTML = temF + 0;
           }
+          document.getElementById("upcoming-tasks-1").insertAdjacentHTML("beforeend", taskString);
+
         }
         let intervalID = setInterval(appLoop, 100);
       });

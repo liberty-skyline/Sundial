@@ -80,7 +80,6 @@
         total += TaskManager.taskStack[i].duration;  
       }
       done += TaskManager.getTask().duration - TaskManager.getTask().timeLeft;
-      console.log(done,total);
       return Math.round((done / total) * 100);
     } else {
       return undefined;
