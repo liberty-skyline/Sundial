@@ -7,8 +7,8 @@
 
 .sunset {
     padding: 13.33px;
-    min-height: 100vh;
-    max-width: 100vw;
+    min-height: calc(100vh - 26.66px);
+    max-width: calc(100vw - 26.66px);
     background-image: linear-gradient(
       rgb(204, 255, 251),
       rgb(255, 255, 255)
@@ -30,7 +30,7 @@
 .sun-2 {
     width: 50px;
     height: 50px;
-    /* transform: translate(); */
+    transform: translate();
 }
 
 .timer-text {
@@ -152,4 +152,70 @@
       rgb(131, 190, 245),
       rgb(169, 150, 231)
       );    
+}
+
+/* Task List Page CSS */
+
+.card-2 {
+    min-height: calc(100vh - 26.66px);
+    max-width: calc(100vw - 26.66px);
+    padding: 13.33px;
+    color: white;
+    background-image: linear-gradient(157deg, #2c2c2c, #1d1d1d);
+}
+
+.add-tasks-1 {
+    /* padding: 80px 20px 0px; */
+    color: white;
+    display: flex;
+    position: absolute;
+    bottom: 60px;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.add-tasks-2 {
+    padding: 15px;
+    margin: 5px;
+    color: white;
+    background-color: #1d1d1d;
+    border-radius: 60px;
+    border-color: white;
+    border-width: 1px;
+    width: 250px;
+}
+
+.add-tasks-3 {
+    padding: 15px;
+    margin: 5px;
+    color: white;
+    background-color: #1d1d1d;
+    border-radius: 60px;
+    border-color: white;
+    border-width: 2px;
+    width: 45px;
+}
+
+.add-tasks-4 {
+    background-image: linear-gradient(
+        rgb(131, 190, 245),
+        rgb(169, 150, 231)
+        );
+    margin: 5px;
+    width: 100px;
+}
+
+.add-tasks-5 {
+    width: 60px;
+    height: 60px;
+    color: white;
+    background-color: #1d1d1d;
+    border-radius: 60px;
+    justify-content: center;
+    align-items: center;
+    border-color: white;
+    border-width: 2px;
 }
