@@ -16,43 +16,56 @@
     <main>
       <div class="sunset">
 
-        <div class="timer-text">25:00</div>
+        <div id="timer-text" class="timer-text">25:00</div>
 
         <div class="card">
 
           <div>
 
             <div class="header-subheader-1">
-              <h1 class="header-subheader-2">
-                Task
+              <h1 id="current-task-name" class="header-subheader-2">
+                History
               </h1>
-              <h2 class="header-subheader-3">
-                25 Minute Sprint
+              <h2  class="header-subheader-3">
+                <span id="current-task-duration" >25</span> Minute Sprint
               </h2>
             </div>
 
-            <div class="upcoming-tasks-1">
+            <div id="upcoming-tasks-1" class="upcoming-tasks-1">
               <span class="upcoming-tasks-2">
                 Your Upcoming Tasks
               </span>
               <div class="upcoming-tasks-3">
                 <div class="upcoming-tasks-4">
                   <span class="upcoming-tasks-5">
-                    5:00
+                    10:00
                   </span>
                 </div>
                 <div class="upcoming-tasks-6">
                   <span class="upcoming-tasks-7">
-                    Break
+                    Pre-Calculus
                   </span>
                 </div>
               </div>
+<div class="upcoming-tasks-3">
+                <div class="upcoming-tasks-4">
+                  <span class="upcoming-tasks-5">
+                    15:00
+                  </span>
+                </div>
+                <div class="upcoming-tasks-6">
+                  <span class="upcoming-tasks-7">
+                    Chem
+                  </span>
+                </div>
+              </div>
+
             </div>
 
           </div>
 
           <div class="progress-bar-1">
-            <p class="progress-bar-2">
+            <p id="progress-bar-2" class="progress-bar-2">
               You're <span id="progress-total">50%</span> finished with your itinerary.
             </p>
             <div class="progress-bar-3">
@@ -71,12 +84,32 @@
         Timer.startTimer();
         const progressTotal = document.getElementById("progress-total");
         const appLoop = () => {
+          updateTimerText();
           if(Timer.getTotalProgress() == undefined) {
-            document.getElementById("progress-bar-4").style["width"] = "100%";            progressTotal.innerHTML = "You're 100% finished with your itinerary."; 
+            document.getElementById("progress-bar-4").style["width"] = "100%";            
+            document.getElementById("progress-bar-2").innerHTML = "You're 100% finished with your itinerary."; 
             clearInterval(intervalID);
           } else {
             progressTotal.innerHTML = Timer.getTotalProgress().toString() + "%";
             document.getElementById("progress-bar-4").style["width"] = Timer.getTotalProgress().toString() + "%";
+          }
+        }
+
+        const updateTimerText = () => {
+          let time = Timer.time;
+          let mins = Math.floor(time / 60);
+          let secs = time - (mins * 60);
+          secs = (secs.toString().length == 1 ? ("0" + secs.toString()) : secs.toString());
+          document.getElementById("timer-text").innerHTML = mins.toString() + ":" + secs;
+        }
+        const addTask = () => {
+          const template = `<div class="upcoming-tasks-3"><div class="upcoming-tasks-4"><span class="upcoming-tasks-5"></span></div><div class="upcoming-tasks-6"> <span class="upcoming-tasks-7"></span></div></div>`
+          const tasks = TaskManager.getAllTasks();
+          console.log(tasks);
+          for(i=1; i<tasks.length;i++) {
+            let taskHTML = template;
+            
+            document.getElementById("upcoming-tasks-1").insertAdjacentHTML("beforeend", taskHTML);
           }
         }
         let intervalID = setInterval(appLoop, 100);
