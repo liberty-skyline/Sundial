@@ -1,9 +1,9 @@
-//import Task from "./task.js";
-
-/*export */const TaskManager = {
+const TaskManager = {
 	taskStack: [],
   doneTasks: [],
 	idCount: 0,
+
+  //Pretty self-explanatory
 	addTask(task) {
 		if(!(task instanceof Task)) {
 			throw new Error("task must be of type Task");
@@ -16,6 +16,8 @@
 		}
 	},
 
+  //Makes either a task's name or id, then removes it and updates taskStack
+  //Note: no argument removes the top task
 	removeTask(identifier=null) {
 		if(identifier) {
 			const type = typeof identifier;
@@ -42,18 +44,23 @@
 		}
 	},
 	
+  //Subtracts a second from current task, and if the task is done, run taskFinished()
 	updateTasks() {
 		this.taskStack[0].timeLeft -= 1;
-
 		this.taskStack[0].timeLeft <= 0 ? this.taskFinished() : null;
 	},
 
+  //Put the finished task in doneTasks, then remove it
 	taskFinished() {
 		//run task finished funcs
     this.doneTasks.push(this.getTask());
 		this.removeTask();
 	},
 
+  /** So the idea of resetting id's seemed like a good idea at the time,
+   *  being late at night and frustrated at the code, so here we are, and
+   *  id's are basically just the task's index
+   */
 	resetIds() {
 		let idIndex = 0;
 		for(let i=0; i < this.taskStack.length; i++) {
@@ -63,6 +70,7 @@
 		this.idCount = idIndex;
 	},
 
+  //This reorders the tasks by urgency
   resetOrder() {
     let taskBuffer = [];
     const urgencies = ["highest", "high", "none", "low", "lowest"];
@@ -76,6 +84,16 @@
     this.taskStack = taskBuffer;
   },
   
+  /** This was the result of another late night of late coding,
+   *  so it's probably overly complicated, but it works, so it stays
+   *  You can either use it normally, with the name/id of the task you wanna
+   *  move, then the index of the place you wanna move it, or, there's a maybe
+   *  useless other functionality which makes up most of its complicatedness.
+   *
+   *  You use the other functionality by supplying the name/id of the task you
+   *  wanna move, then a string with a direction and relative task name/id like
+   *  "above history" or "below 4"
+   */
   moveTask(identifier, place) {
     try {
       let task = this.getTask(identifier)
@@ -87,6 +105,7 @@
           this.removeTask(identifier);
           this.taskStack.splice(place, 0, task);
         }
+      //This is where the alternate usage is
       } else if(typeof place == "string") {
         let command = place.split(" ")[0],
             dest = place.split(" ")[1],
@@ -123,10 +142,13 @@
     }
   },
 
+  //Self explanatory
 	removeAllTasks() {
 		this.taskStack = [];
 	},
 
+  //Pretty self explanatory, just supply a name/id and it returns a task object
+  //Note: no identifier will return the current task
 	getTask(identifier) {
 		if(identifier) {
 			const type = typeof identifier;
@@ -151,10 +173,14 @@
 		}
 	},
 
+  //Self explanatory
 	getAllTasks() {
 		return this.taskStack;
 	},
 
+  /** This is exactly like getTask (I think I might've just copy and pasted it),
+   *  but it gets a task from doneTasks
+   */
   getCompletedTask(identifier) {
     if(identifier) {
 			const type = typeof identifier;
@@ -180,6 +206,7 @@
 
   },
 
+  //Basically the doneTasks version of removeAllTasks()
   clearDoneTasks() {
     this.doneTasks = [];
   }

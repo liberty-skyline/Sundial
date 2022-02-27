@@ -6,7 +6,7 @@ TaskManager.addTask((new Task("english", 90)));
 //The progress bar at the bottom of the main page
 const progressTotal = document.getElementById("progress-total");
 
-//converts seconds to a min:sec format (as a string)
+//Converts seconds to a min:sec format (as a string)
 const convertTime = (time) => {
   let mins = Math.floor(time / 60);
   let secs = time - (mins * 60);
@@ -14,7 +14,7 @@ const convertTime = (time) => {
   return (mins.toString() + ":" + secs);
 }
 
-//updates main timer at the top of main page based on Timer.time
+//Updates main timer at the top of main page based on Timer.time
 const updateTimerText = () => {
   let time = Timer.time;
   document.getElementById("timer-text").innerHTML = convertTime(time);
@@ -41,13 +41,13 @@ const updateTasks = (title=true) => {
   const temM = `</span></div><div class="upcoming-tasks-6"> <span class="upcoming-tasks-7">`;
   const temE = `</span></div></div>`;
 
-  //task string that later gets popped into DOM
+  //Task string that later gets popped into DOM
   let taskString = "";
 
-  //list of tasks that are currently in taskStack
+  //List of tasks that are currently in taskStack
   const tasks = TaskManager.getAllTasks();
 
-  //iterates through each task, uses the templates to create HTML for each task, then appends it to taskString
+  //Iterates through each task, uses the templates to create HTML for each task, then appends it to taskString
   for(i=1; i<tasks.length;i++) { 
     let mins = Math.floor(tasks[i].timeLeft / 60); 
     let secs = tasks[i].timeLeft - (mins * 60);
