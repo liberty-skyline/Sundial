@@ -81,28 +81,29 @@
       </div>
     </main>
     <script>
-      Timer.startTimer();
-      let intervalID = null;
+      document.addEventListener("DOMContentLoaded", () => {
+        Timer.startTimer();
+        let intervalID = null;
 
-      const appLoop = () => {
-        updateTimerText();
-        if(Timer.getTotalProgress() == undefined) {
-          document.getElementById("progress-bar-4").style["width"] = "100%";            
-          document.getElementById("progress-bar-2").innerHTML = "You're 100% finished with your itinerary."; 
-          document.getElementById("upcoming-tasks-1").innerHTML = "";
-          document.getElementById("header-subheader-3").innerHTML = "";
-          document.getElementById("current-task-name").innerHTML = "No Tasks to Do";
-          clearInterval(intervalID);
-        } else {
-          updateTasks();
-          progressTotal.innerHTML = Timer.getTotalProgress().toString() + "%";
-          document.getElementById("progress-bar-4").style["width"] = Timer.getTotalProgress().toString() + "%";
+        const appLoop = () => {
+          updateTimerText();
+          if(Timer.getTotalProgress() == undefined) {
+            document.getElementById("progress-bar-4").style["width"] = "100%";            
+            document.getElementById("progress-bar-2").innerHTML = "You're 100% finished with your itinerary."; 
+            document.getElementById("upcoming-tasks-1").innerHTML = "";
+            document.getElementById("header-subheader-3").innerHTML = "";
+            document.getElementById("current-task-name").innerHTML = "No Tasks to Do";
+            clearInterval(intervalID);
+          } else {
+            updateTasks();
+            progressTotal.innerHTML = Timer.getTotalProgress().toString() + "%";
+            document.getElementById("progress-bar-4").style["width"] = Timer.getTotalProgress().toString() + "%";
+          }
         }
-      }
 
-      window.addEventListener("DOMContentLoaded", () => {
         intervalID = setInterval(appLoop, 100);
       });
+
     </script>
   </body>
 </html>

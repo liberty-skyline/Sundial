@@ -7,6 +7,7 @@
   timerRunning: false,
 
 	startTimer() {
+    this.time = (1500 > TaskManager.getTask().timeLeft ? TaskManager.getTask().timeLeft : 1500);
 		this.intervalID = setInterval(this.timerLoop.bind(this), 1000);
     this.timerRunning = true;
 	},
@@ -32,7 +33,7 @@
 		} else {
 			if(this.time <= 0) {
 				this.runBreak();
-				this.time = 1500;
+				this.time = (1500 > TaskManager.getTask().timeLeft ? TaskManager.getTask().timeLeft : 1500);
 				return;
 			} else {
 				TaskManager.updateTasks();

@@ -16,7 +16,7 @@ const convertTime = (time) => {
 
 //Updates main timer at the top of main page based on Timer.time
 const updateTimerText = () => {
-  let time = Timer.time;
+  let time = TaskManager.getTask().timeLeft;
   document.getElementById("timer-text").innerHTML = convertTime(time);
 }
 
@@ -26,7 +26,7 @@ const updateTasks = (title=true) => {
   //Displays the current task name and duration if title is true
   if(title) {
     document.getElementById("current-task-name").innerHTML = (TaskManager.getTask().name.charAt(0).toUpperCase() + TaskManager.getTask().name.slice(1));
-    document.getElementById("header-subheader-3").innerHTML = `<span id="current-task-duration" >${convertTime(TaskManager.getTask().timeLeft)}</span> Minute Sprint`;
+    document.getElementById("header-subheader-3").innerHTML = `<span id="current-task-duration" >${convertTime(TaskManager.getTask().duration)}</span> Minute Sprint`;
   }
 
   /** HTML templates for the task list
