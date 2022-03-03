@@ -1,10 +1,10 @@
 //These are temporary for testing purposes
-task1 = new Task("math", 80);
-TaskManager.addTask(task1);
-TaskManager.addTask((new Task("english", 90)));
+//task1 = new Task("math", 80);
+//TaskManager.addTask(task1);
+//TaskManager.addTask((new Task("english", 90)));
 
 //The progress bar at the bottom of the main page
-const progressTotal = document.getElementById("progress-total");
+let progressTotal = undefined; 
 
 //Converts seconds to a min:sec format (as a string)
 const convertTime = (time) => {
@@ -70,3 +70,35 @@ const updateTasks = (title=true) => {
 
 }
 
+const updateProgressBar = () => {
+  document.getElementById("progress-total").innerHTML = Timer.getTotalProgress().toString() + "%";
+  document.getElementById("progress-bar-4").style["width"] = Timer.getTotalProgress().toString() + "%";
+}
+
+const checkLocalStorage = () => {
+  if(!localStorage.getItem("taskStack")) {
+    localStorage.setItem("taskStack", JSON.stringify([]));
+  }
+
+  if(!localStorage.getItem("time")) {
+    localStorage.setItem("time", JSON.stringify(0));
+  }
+}
+
+const updateLocalStorage = () => {
+  localStorage.setItem("taskStack", JSON.stringify(TaskManager.taskStack));
+  localStorage.setItem("time", JSON.stringify(Timer.time));
+} 
+
+const finishedTasks = () => {
+  updateLocalStorage();
+  //Progress bar & text
+  document.getElementById("progress-total").innerHTML = "100%";
+  document.getElementById("progress-bar-4").style["width"] = "100%"
+  
+  document.getElementById("current-task-name").innerHTML = "All Done!";
+  document.getElementById("header-subheader-3").innerHTML = "";
+
+  document.getElementById("timer-text").innerHTML = "0:00";
+  
+}

@@ -10,7 +10,7 @@
     <script src="scripts/task.js" ></script>
     <script src="scripts/taskmanager.js" ></script>
     <script src="scripts/timer.js" ></script>
-    <script src="scripts/common.js" defer></script>
+    <script src="scripts/common.js" ></script>
 
   </head>
   <body>
@@ -81,7 +81,7 @@
       </div>
     </main>
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
+     /* document.addEventListener("DOMContentLoaded", () => {
         Timer.startTimer();
         let intervalID = null;
 
@@ -102,8 +102,39 @@
         }
 
         intervalID = setInterval(appLoop, 100);
-      });
+      });*/
 
+      console.log(TaskManager.taskStack);
+      console.log(Timer.time)
+      
+      checkLocalStorage();
+      TaskManager.taskStack = JSON.parse(localStorage.getItem("taskStack"));
+      
+      let appIntervalId = null;
+
+      const appLoop = () => {
+        if(!TaskManager.taskStack[0]) {
+          finishedTasks();
+          clearInterval(appIntervalId);
+        } else {
+          if(!Timer.timerRunning) {
+            Timer.startTimer();
+          }
+          updateLocalStorage();
+          updateTimerText(); 
+          updateTasks();
+          updateProgressBar();
+        }
+
+      }
+      
+      if(TaskManager.taskStack[0]) {
+        appIntervalId = setInterval(appLoop, 100);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        progressTotal = document.getElementById("progress-total");
+      });
     </script>
   </body>
 </html>

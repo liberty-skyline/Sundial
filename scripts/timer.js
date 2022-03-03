@@ -2,9 +2,10 @@
 //import TaskManager from "./taskmanager.mjs";
 
 /*export */const Timer = {
-	time: 1500,
+	time: 0,
 	intervalID: null,
   timerRunning: false,
+  breakRunning: false,
 
 	startTimer() {
     this.time = (1500 > TaskManager.getTask().timeLeft ? TaskManager.getTask().timeLeft : 1500);
