@@ -50,7 +50,12 @@
       </main>
       <script>
         Timer.stopTimer();
-          
+        if(localStorage.getItem("taskStack")) {
+          TaskManager.taskStack = JSON.parse(localStorage.getItem("taskStack"));
+          updateTasks(false);
+        }
+
+
         const submit = () => {
           if(!addTask()[0]) {
             return false;
