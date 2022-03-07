@@ -60,8 +60,9 @@ const updateTasks = (title=true) => {
 
   //Because I designed this with the main page in mind and I didn't want to change too much, this is here to add the first task in taskStack to the top of taskString
   if(!title) {
-    taskString = (temF + convertTime(TaskManager.taskStack[0].timeLeft) + temM + (TaskManager.taskStack[0].name.charAt(0).toUpperCase() + TaskManager.taskStack[0].name.slice(1)) + temE) + taskString;
-
+    if(TaskManager.taskStack[0]) {
+      taskString = (temF + convertTime(TaskManager.taskStack[0].timeLeft) + temM + (TaskManager.taskStack[0].name.charAt(0).toUpperCase() + TaskManager.taskStack[0].name.slice(1)) + temE) + taskString;
+    }
   }
 
   taskString = temT + taskString;
