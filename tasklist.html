@@ -10,12 +10,14 @@
     <script src="scripts/task.js" ></script>
     <script src="scripts/taskmanager.js" ></script>
     <script src="scripts/timer.js" ></script>
+    <script src="scripts/common.js" ></script>
+    <script src="scripts/form.js" ></script>
 
   </head>
   <body>
       <main>
           <div class="card-2">
-            <div class="upcoming-tasks-1">
+            <div id="upcoming-tasks-1" class="upcoming-tasks-1">
                 <span class="upcoming-tasks-2">
                   Your Upcoming Tasks
                 </span>
@@ -34,17 +36,35 @@
               </div>
               <div class="add-tasks-1">
                 <div>
-                  <input type="text" class="add-tasks-2" id="task-name" name="task-name" placeholder="Add Task">
-                  <button type="submit" class="add-tasks-5">+</button>
+                  <input id="task-name" type="text" class="add-tasks-2" id="task-name" name="task-name" placeholder="Add Task">
+                  <button type="submit" onclick="submit()" class="add-tasks-5">+</button>
                 </div>
                 <div>
                   <label for="add-tasks-3">Task Duration</label>
-                  <input type="number" class="add-tasks-3" id="task-duration" name="task-duration" value="25" min="5" max="150" step="5">
+                  <input id="task-duration" type="number" class="add-tasks-3" id="task-duration" name="task-duration" value="25" min="5" max="150" step="5">
                   <label for="add-tasks-4">Task Urgency</label>
-                  <input type="range" class="add-tasks-4" id="task-urgency" name="task-urgency" value="0" min="-2" max="2">
+                  <input id="task-urgency" type="range" class="add-tasks-4" id="task-urgency" name="task-urgency" value="0" min="-2" max="2">
                 </div>                    
               </div>
           </div>
       </main>
+      <script>
+        Timer.stopTimer();
+        if(localStorage.getItem("taskStack")) {
+          TaskManager.taskStack = JSON.parse(localStorage.getItem("taskStack"));
+          updateTasks(false);
+        }
+
+
+        const submit = () => {
+          if(!addTask()[0]) {
+            return false;
+          } else {
+            updateLocalStorage();
+            updateTasks(false);
+          }
+        }
+
+      </script>
   </body>
 </html>

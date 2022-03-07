@@ -10,6 +10,7 @@
     <script src="scripts/task.js" ></script>
     <script src="scripts/taskmanager.js" ></script>
     <script src="scripts/timer.js" ></script>
+    <script src="scripts/common.js" ></script>
 
   </head>
   <body>
@@ -26,10 +27,9 @@
 
             <div class="header-subheader-1">
               <h1 id="current-task-name" class="header-subheader-2">
-                Science
+                No Tasks to Do!
               </h1>
-              <h2  class="header-subheader-3">
-                <span id="current-task-duration" >25</span> Minute Sprint
+              <h2 id="header-subheader-3" class="header-subheader-3">
               </h2>
             </div>
 
@@ -37,31 +37,6 @@
               <span class="upcoming-tasks-2">
                 Your Upcoming Tasks
               </span>
-              <div class="upcoming-tasks-3">
-                <div class="upcoming-tasks-4">
-                  <span class="upcoming-tasks-5">
-                    10:00
-                  </span>
-                </div>
-                <div class="upcoming-tasks-6">
-                  <span class="upcoming-tasks-7">
-                    Pre-Calculus
-                  </span>
-                </div>
-              </div>
-              <div class="upcoming-tasks-3">
-                <div class="upcoming-tasks-4">
-                  <span class="upcoming-tasks-5">
-                    15:00
-                  </span>
-                </div>
-                <div class="upcoming-tasks-6">
-                  <span class="upcoming-tasks-7">
-                    Chem
-                  </span>
-                </div>
-              </div>
-
             </div>
 
           </div>
@@ -80,63 +55,59 @@
       </div>
     </main>
     <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        task1 = new Task("math", 80);
-        TaskManager.addTask(task1);
-        TaskManager.addTask((new Task("english", 90)));
+     /* document.addEventListener("DOMContentLoaded", () => {
         Timer.startTimer();
-        const progressTotal = document.getElementById("progress-total");
+        let intervalID = null;
 
         const appLoop = () => {
           updateTimerText();
-          updateTasks();
           if(Timer.getTotalProgress() == undefined) {
             document.getElementById("progress-bar-4").style["width"] = "100%";            
             document.getElementById("progress-bar-2").innerHTML = "You're 100% finished with your itinerary."; 
+            document.getElementById("upcoming-tasks-1").innerHTML = "";
+            document.getElementById("header-subheader-3").innerHTML = "";
+            document.getElementById("current-task-name").innerHTML = "No Tasks to Do";
             clearInterval(intervalID);
           } else {
+            updateTasks();
             progressTotal.innerHTML = Timer.getTotalProgress().toString() + "%";
             document.getElementById("progress-bar-4").style["width"] = Timer.getTotalProgress().toString() + "%";
           }
         }
 
-        const convertTime = (time) => {
-          let mins = Math.floor(time / 60);
-          let secs = time - (mins * 60);
-          secs = (secs.toString().length == 1 ? ("0" + secs.toString()) : secs.toString());
-          return (mins.toString() + ":" + secs);
-        }
-        const updateTimerText = () => {
-          let time = Timer.time;
-          let mins = Math.floor(time / 60);
-          let secs = time - (mins * 60);
-          secs = (secs.toString().length == 1 ? ("0" + secs.toString()) : secs.toString());
-          document.getElementById("timer-text").innerHTML = mins.toString() + ":" + secs;
-        }
-        const updateTasks = () => {
-          
-          document.getElementById("current-task-name").innerHTML = (TaskManager.getTask().name.charAt(0).toUpperCase() + TaskManager.getTask().name.slice(1));
-          document.getElementById("current-task-duration").innerHTML = convertTime(TaskManager.getTask().timeLeft);
+        intervalID = setInterval(appLoop, 100);
+      });*/
 
-          const temF = `<div class="upcoming-tasks-3"><div class="upcoming-tasks-4"><span class="upcoming-tasks-5">`;
-          const temM = `</span></div><div class="upcoming-tasks-6"> <span class="upcoming-tasks-7">`;
-          const temE = `</span></div></div>`;
+      console.log(TaskManager.taskStack);
+      console.log(Timer.time)
+      
+      checkLocalStorage();
+      TaskManager.taskStack = JSON.parse(localStorage.getItem("taskStack"));
+      
+      let appIntervalId = null;
 
-          let taskString = "";
-          const tasks = TaskManager.getAllTasks();
-          for(i=1; i<tasks.length;i++) { 
-            let mins = Math.floor(tasks[i].timeLeft / 60); 
-            let secs = tasks[i].timeLeft - (mins * 60);
-            secs = (secs.toString().length == 1 ? ("0" + secs.toString()) : secs.toString());
- 
-            let time = mins.toString() + ":" + secs;
-            let taskHTML = temF + time + temM + (tasks[i].name.charAt(0).toUpperCase() + tasks[i].name.slice(1)) + temE;
-            taskString += taskHTML;
+      const appLoop = () => {
+        if(!TaskManager.taskStack[0]) {
+          finishedTasks();
+          clearInterval(appIntervalId);
+        } else {
+          if(!Timer.timerRunning) {
+            Timer.startTimer();
           }
-          document.getElementById("upcoming-tasks-1").innerHTML = taskString;
-
+          updateLocalStorage();
+          updateTimerText(); 
+          updateTasks();
+          updateProgressBar();
         }
-        let intervalID = setInterval(appLoop, 100);
+
+      }
+      
+      if(TaskManager.taskStack[0]) {
+        appIntervalId = setInterval(appLoop, 100);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        progressTotal = document.getElementById("progress-total");
       });
     </script>
   </body>
