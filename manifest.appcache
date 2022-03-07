@@ -1,0 +1,22 @@
+CACHE MANIFEST
+#Version 0.1
+
+CACHE:
+
+index.html
+tasklist.html
+
+#scripts
+scripts/task.js
+scripts/taskmanager.js
+scripts/timer.js
+scripts/common.js
+scripts/form.js
+
+#css
+css/index.css
+
+#images
+images/halfcircle.svg
+images/halfcirclewhite.svg
+images/sun.png
