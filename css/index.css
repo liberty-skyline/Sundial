@@ -5,6 +5,11 @@
     src: url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
+
 .sunset {
     padding: 13.33px;
     min-height: calc(100vh - 26.66px);
